@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React from 'react'
+import { PropTypes } from 'prop-types'
 
 const renderPhrase = (number) => {
   const numForPhrase = [2, 3, 4]
@@ -20,20 +20,22 @@ const renderPhrase = (number) => {
   const tusa = number === 1 ? 'тусанет' : 'тусанут'
   const nobody = 'Никто с тобой не тусанет'
 
-  let phraseOfNum = `${number} ${people} ${tusa} с тобой сегодня `
+  const phraseOfNum = `${number} ${people} ${tusa} с тобой сегодня `
 
-  return (number === 0 ? nobody : phraseOfNum)
-
+  return number === 0 ? nobody : phraseOfNum
 }
-
 
 const SearchStatus = ({ length }) => {
   // тут формируем фразу
-  console.log('length++++++++++++',length)
+  console.log('length++++++++++++', length)
   return (
-    <span className={`badge bg-${length ? 'primary' : 'danger'}`}>{renderPhrase(length)}</span>)
+    <span className={`badge bg-${length ? 'primary' : 'danger'}`}>
+      {renderPhrase(length)}
+    </span>
+  )
 }
 
-
-
+SearchStatus.propTypes = {
+  length: PropTypes.number.isRequired
+}
 export default SearchStatus
