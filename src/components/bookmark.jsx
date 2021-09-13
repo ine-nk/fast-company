@@ -2,9 +2,9 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 
 const BookMark = ({ status, onToggleBookMark, id, ...rest }) => {
-  console.log('satus', status)
+  // console.log('satus', status)
 
-  console.log('id', id, typeof (id))
+  // console.log('id', id, typeof (id))
 
   // status = true
   let classPart = 'bi bi-bookmark'
@@ -12,8 +12,8 @@ const BookMark = ({ status, onToggleBookMark, id, ...rest }) => {
 
   return (
     <div className="text-al-center">
-      <button onClick={() => onToggleBookMark(id)}>
-        <i className={classPart}></i>
+      <button onClick={ () => onToggleBookMark(id) }>
+        <i className={ classPart }></i>
       </button>
     </div>
   )

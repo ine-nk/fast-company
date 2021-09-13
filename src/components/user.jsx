@@ -15,30 +15,30 @@ const User = ({
   onDelete,
   onToggleBookMark
 }) => {
-  console.log('_id', _id, typeof (_id))
+  // console.log('_id', _id, typeof (_id))
   return (
-    <tr key={_id}>
-      <td>{name}</td>
-      <td>{profession.name}</td>
+    <tr key={ _id }>
+      <td>{ name }</td>
+      <td>{ profession.name }</td>
       <td>
-        {qualities.map(({ _id, ...quality }) => (
-          <Quality key={_id} {...quality} />
-        ))}
+        { qualities.map(({ _id, ...quality }) => (
+          <Quality key={ _id } { ...quality } />
+        )) }
       </td>
-      <td className="text-al-center"> {completedMeetings} </td>
-      <td className="text-al-center"> {rate}/5 </td>
+      <td className="text-al-center"> { completedMeetings } </td>
+      <td className="text-al-center"> { rate }/5 </td>
       <td>
         <BookMark
-          onToggleBookMark={onToggleBookMark}
-          id={_id}
-          status={status}
+          onToggleBookMark={ onToggleBookMark }
+          id={ _id }
+          status={ status }
         />
       </td>
       <td>
-        {' '}
-        <button onClick={() => onDelete(_id)} className="btn btn-danger btn-sm">
+        { ' ' }
+        <button onClick={ () => onDelete(_id) } className="btn btn-danger btn-sm">
           Удалить
-        </button>{' '}
+        </button>{ ' ' }
       </td>
     </tr>
   )

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 
 const renderPhrase = (number) => {
   const numForPhrase = [2, 3, 4]
-  console.log('number ===========', number)
+  // console.log('number ===========', number)
 
   const lastSimb = +String(number).slice(-1)
 
@@ -27,10 +27,10 @@ const renderPhrase = (number) => {
 
 const SearchStatus = ({ length }) => {
   // тут формируем фразу
-  console.log('length++++++++++++', length)
+  // console.log('length++++++++++++', length)
   return (
-    <span className={`badge bg-${length ? 'primary' : 'danger'}`}>
-      {renderPhrase(length)}
+    <span className={ `badge bg-${length ? 'primary' : 'danger'}` }>
+      { renderPhrase(length) }
     </span>
   )
 }
