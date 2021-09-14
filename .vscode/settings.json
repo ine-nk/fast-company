@@ -1,4 +1,0 @@
-{
-  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
-}
