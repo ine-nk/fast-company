@@ -19,10 +19,18 @@ const App = () => {
   }
 
   const handleToggleBookMark = (id) => {
-    const newUsers = [...users]
-    const index = newUsers.findIndex((user) => user._id === id)
-    newUsers[index].status = !newUsers[index].status
-    setUsers(newUsers)
+    // const newUsers = [...users]
+    // const index = newUsers.findIndex((user) => user._id === id)
+    // newUsers[index].status = !newUsers[index].status
+    // setUsers(newUsers)
+    setUsers(
+      users.map((user) => {
+        if (user._id === id) {
+          return { ...user, bookmark: !user.bookmark }
+        }
+        return user
+      })
+    )
   }
 
   return (

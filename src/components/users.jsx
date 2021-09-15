@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import User from './user'
 import Pagination from './pagination'
 import api from '../api/index'
 import GroupList from './groupList'
 import SearchStatus from './searchStatus'
+import UserTable from './usersTable'
 import _ from 'lodash'
 
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
 
-const Users = ({ users: allUsers, onDelete, onToggleBookMark }) => {
+const Users = ({ users: allUsers, currentSort, ...rest }) => {
   const [currentPage, setCurrentPage] = useState(1)
   // const [professions] = useState(api.professions.fetchAll())
   const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
-  const pageSize = 3
+  // состояние порядка сортировки iter: поле по которому сортировать, order:  направление  сортировки ( asc - по возрастанию)
+  const [sortBy, setSortBy] = useState({ iter: 'name', order: 'asc' })
+  const pageSize = 8
 
   useEffect(() => {
     api.professions.fetchAll().then((data) => {
@@ -41,6 +43,11 @@ const Users = ({ users: allUsers, onDelete, onToggleBookMark }) => {
     console.log('pageIndex', pageIndex)
     setCurrentPage(pageIndex)
   }
+
+  const handleSort = (item) => {
+    setSortBy(item)
+  }
+
   const filteredUsers = selectedProf
     ? allUsers.filter((user) => _.isEqual(user.profession, selectedProf))
     : allUsers
@@ -51,30 +58,12 @@ const Users = ({ users: allUsers, onDelete, onToggleBookMark }) => {
 
   const count = filteredUsers.length
 
-  const users = paginate(filteredUsers, currentPage, pageSize)
+  // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
+  const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order])
+  // и вместо  filteredUsers передаем sortedUsers
+  const usersCrop = paginate(sortedUsers, currentPage, pageSize)
 
-  const tableHead = (
-    <thead>
-      <tr>
-        <th scope="col">Имя</th>
-        <th scope="col">Профессия</th>
-        <th scope="col">Качества</th>
-        <th scope="col">кол-во встреч</th>
-        <th scope="col">рейтинг</th>
-        <th scope="col">отметка</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-  )
 
-  const rows = users.map((user) => (
-    <User
-      key={ user._id }
-      { ...user }
-      onDelete={ onDelete }
-      onToggleBookMark={ onToggleBookMark }
-    />
-  ))
   const clearFilter = () => {
     setSelectedProf()
   }
@@ -95,10 +84,11 @@ const Users = ({ users: allUsers, onDelete, onToggleBookMark }) => {
       <div className="d-flex flex-column">
         <SearchStatus length={ count } />
         { !!count && (
-          <table className="table">
-            { tableHead }
-            <tbody>{ rows }</tbody>
-          </table>
+          <UserTable
+            users={ usersCrop }
+            onSort={ handleSort }
+            currentSort={ sortBy }
+            { ...rest } />
         ) }
         <div className="d-flex justify-content-center">
           <Pagination

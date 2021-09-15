@@ -1,7 +1,7 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 
-const BookMark = ({ status, onToggleBookMark, id, ...rest }) => {
+const BookMark = ({ status, ...rest }) => {
   // console.log('satus', status)
 
   // console.log('id', id, typeof (id))
@@ -12,7 +12,7 @@ const BookMark = ({ status, onToggleBookMark, id, ...rest }) => {
 
   return (
     <div className="text-al-center">
-      <button onClick={ () => onToggleBookMark(id) }>
+      <button { ...rest }>
         <i className={ classPart }></i>
       </button>
     </div>
@@ -20,7 +20,7 @@ const BookMark = ({ status, onToggleBookMark, id, ...rest }) => {
 }
 BookMark.propTypes = {
   status: PropTypes.bool,
-  onToggleBookMark: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired
+  // onToggleBookMark: PropTypes.func.isRequired,
+  // id: PropTypes.string.isRequired
 }
 export default BookMark

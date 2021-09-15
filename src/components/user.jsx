@@ -11,7 +11,7 @@ const User = ({
   qualities,
   completedMeetings,
   rate,
-  status,
+  bookmark,
   onDelete,
   onToggleBookMark
 }) => {
@@ -29,16 +29,15 @@ const User = ({
       <td className="text-al-center"> { rate }/5 </td>
       <td>
         <BookMark
-          onToggleBookMark={ onToggleBookMark }
-          id={ _id }
-          status={ status }
+          status={ bookmark }
+          onClick={ () => onToggleBookMark(_id) }
+          // id={ _id }
         />
       </td>
       <td>
-        { ' ' }
         <button onClick={ () => onDelete(_id) } className="btn btn-danger btn-sm">
           Удалить
-        </button>{ ' ' }
+        </button>
       </td>
     </tr>
   )
@@ -50,7 +49,7 @@ User.propTypes = {
   qualities: PropTypes.array,
   completedMeetings: PropTypes.number,
   rate: PropTypes.number,
-  status: PropTypes.bool,
+  bookmark: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onToggleBookMark: PropTypes.func.isRequired
 }
