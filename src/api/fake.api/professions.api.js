@@ -1,54 +1,54 @@
 export const professionsObject = {
   doctor: {
     _id: '67rdca3eeb7f6fgeed471818',
-    name: 'Доктор',
+    name: 'Доктор'
   },
   waiter: {
     _id: '67rdca3eeb7f6fgeed471820',
-    name: 'Официант',
+    name: 'Официант'
   },
   physics: {
     _id: '67rdca3eeb7f6fgeed471814',
-    name: 'Физик',
+    name: 'Физик'
   },
   engineer: {
     _id: '67rdca3eeb7f6fgeed471822',
-    name: 'Инженер',
+    name: 'Инженер'
   },
   actor: {
     _id: '67rdca3eeb7f6fgeed471824',
-    name: 'Актер',
+    name: 'Актер'
   },
   cook: {
     _id: '67rdca3eeb7f6fgeed471829',
-    name: 'Повар',
-  },
+    name: 'Повар'
+  }
 }
 export const professions = [
   {
     _id: '67rdca3eeb7f6fgeed471818',
-    name: 'Доктор',
+    name: 'Доктор'
   },
   {
     _id: '67rdca3eeb7f6fgeed471820',
-    name: 'Официант',
+    name: 'Официант'
   },
   {
     _id: '67rdca3eeb7f6fgeed471814',
-    name: 'Физик',
+    name: 'Физик'
   },
   {
     _id: '67rdca3eeb7f6fgeed471822',
-    name: 'Инженер',
+    name: 'Инженер'
   },
   {
     _id: '67rdca3eeb7f6fgeed471824',
-    name: 'Актер',
+    name: 'Актер'
   },
   {
     _id: '67rdca3eeb7f6fgeed471829',
-    name: 'Повар',
-  },
+    name: 'Повар'
+  }
 ]
 const fetchAll = () =>
   new Promise((resolve) => {

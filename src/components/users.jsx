@@ -9,7 +9,7 @@ import _ from 'lodash'
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
 
-const Users = ({ users: allUsers, currentSort, ...rest }) => {
+const Users = ({ users: allUsers, selectedSort, ...rest }) => {
   const [currentPage, setCurrentPage] = useState(1)
   // const [professions] = useState(api.professions.fetchAll())
   const [professions, setProfessions] = useState()
@@ -23,7 +23,6 @@ const Users = ({ users: allUsers, currentSort, ...rest }) => {
       setProfessions(data)
     })
   }, [])
-  console.log('from users 23 professions ===========>', professions)
 
   useEffect(() => {
     setCurrentPage(1)
@@ -32,15 +31,10 @@ const Users = ({ users: allUsers, currentSort, ...rest }) => {
   //* отследим состояние наших professions и будем отображать по мере изменения
 
   const handleProffesionSelect = (item) => {
-    console.log('item________', item)
     setSelectedProf(item)
-    console.log('selectedProf====', selectedProf)
   }
 
-  // console.log(professions)
-
   const handlePageChange = (pageIndex) => {
-    console.log('pageIndex', pageIndex)
     setCurrentPage(pageIndex)
   }
 
@@ -52,17 +46,12 @@ const Users = ({ users: allUsers, currentSort, ...rest }) => {
     ? allUsers.filter((user) => _.isEqual(user.profession, selectedProf))
     : allUsers
 
-  // const filteredUsers = selectedProf ? allUsers.filter((user) => user.profession._id === selectedProf._id) : allUsers
-  console.log('filter - user.profession, selectedProf ', selectedProf)
-  console.log('filteredUsers: ', filteredUsers)
-
   const count = filteredUsers.length
 
   // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
-  const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order])
+  const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
   // и вместо  filteredUsers передаем sortedUsers
   const usersCrop = paginate(sortedUsers, currentPage, pageSize)
-
 
   const clearFilter = () => {
     setSelectedProf()
@@ -87,7 +76,7 @@ const Users = ({ users: allUsers, currentSort, ...rest }) => {
           <UserTable
             users={ usersCrop }
             onSort={ handleSort }
-            currentSort={ sortBy }
+            selectedSort={ sortBy }
             { ...rest } />
         ) }
         <div className="d-flex justify-content-center">
@@ -109,6 +98,7 @@ Users.propTypes = {
   pageSize: PropTypes.number,
   currentPage: PropTypes.number,
   allUsers: PropTypes.array,
-  users: PropTypes.array
+  users: PropTypes.array,
+  selectedSort: PropTypes.object.isRequired
 }
 export default Users
