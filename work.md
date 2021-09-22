@@ -312,5 +312,71 @@ return (
 
 ## рефакторинг
 
-перенос данных о пользователях в компонент пользователи
+перенос зависимых данных о пользователях в компонент пользователи (users)
 
+т.е. переносим запрашиваемые данные из App  в users
+было:
+const [users, setUsers] = useState()
+
+  useEffect(() => {
+    api.users.fetchAll()
+      .then((data) => {
+        setUsers(data)
+      })
+  }, [])
+  console.log('users------------>', users)
+
+  const hanldeDelete = (userId) => {
+    const newUsers = users.filter((user) => user._id !== userId)
+    setUsers(newUsers)
+  }
+
+  const handleToggleBookMark = (id) => {
+    // const newUsers = [...users]
+    // const index = newUsers.findIndex((user) => user._id === id)
+    // newUsers[index].status = !newUsers[index].status
+    // setUsers(newUsers)
+    setUsers(
+      users.map((user) => {
+        if (user._id === id) {
+          return { ...user, bookmark: !user.bookmark }
+        }
+        return user
+      })
+    )
+  }
+
+  return (
+    <div>
+      { users &&
+        <Users
+          users={ users }
+          onDelete={ hanldeDelete }
+          onToggleBookMark={ handleToggleBookMark }
+        />
+      }
+    </div>)
+}
+
+в Users было:
+const Users = ({ users: allUsers, selectedSort, ...rest }) => {}
+>>>
+стало:
+так как все данные внутренние
+const Users = () => {}
+
+в filteredUsers надо заменить allUsers на users
+
+> выходит ошибка  - что не возможно понять длину массива - так как запрос данных идет асинхронно
+
+Users
+D:/_Prj/react/fast-company/src/components/users.jsx:79
+  76 |    ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+  77 |    : users
+  78 | 
+ 79 |  *const count = filteredUsers.length*
+     | ^  80 | 
+  81 |  // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
+  82 |  const sort
+
+  
