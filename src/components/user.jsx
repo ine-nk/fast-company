@@ -1,8 +1,9 @@
 import React from 'react'
 
-import Quality from './quality'
+// import Quality from './quality'
 import BookMark from './bookmark'
 import { PropTypes } from 'prop-types'
+import QualitiesList from './qualitiesList'
 
 const User = ({
   _id,
@@ -21,9 +22,10 @@ const User = ({
       <td>{ name }</td>
       <td>{ profession.name }</td>
       <td>
-        { qualities.map(({ _id, ...quality }) => (
+        {/* тут было { qualities.map(({ _id, ...quality }) => (
           <Quality key={ _id } { ...quality } />
-        )) }
+        )) } */}
+        <QualitiesList />
       </td>
       <td className="text-al-center"> { completedMeetings } </td>
       <td className="text-al-center"> { rate }/5 </td>
@@ -31,7 +33,7 @@ const User = ({
         <BookMark
           status={ bookmark }
           onClick={ () => onToggleBookMark(_id) }
-          // id={ _id }
+        // id={ _id }
         />
       </td>
       <td>

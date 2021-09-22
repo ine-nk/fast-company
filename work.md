@@ -45,6 +45,7 @@
 <tbody>
 
 `{users.forEach((user) => {return (<>`
+
 <tr key={user._id}>
 <th scope="row"></th>
 <td >{user.name}</td>
@@ -210,7 +211,7 @@ useEffect(()=>{ console.log('render')})
 
 `<TableHeader { ...{ onSort, selectedSort } } />`
 или
-` <TableHeader onSort={ onSort }  selectedSort={ selectedSort } columns={ columns } />`
+`<TableHeader onSort={ onSort } selectedSort={ selectedSort } columns={ columns } />`
 
 ## реализация создания события альтернатива
 
@@ -219,22 +220,22 @@ useEffect(()=>{ console.log('render')})
 
 # в реализации есть ошибка абстракции
 
-вынесли tableHeader  и сделали его универсальным но в боди оставили отображение контента через users  в котором отображаем все наши столбцы статично
+вынесли tableHeader и сделали его универсальным но в боди оставили отображение контента через users в котором отображаем все наши столбцы статично
 
 > caret, arrow, triangle
 > Caret down fill
-> ` <i class="bi bi-caret-down-fill"></i> `
+> `<i class="bi bi-caret-down-fill"></i>`
 > Caret up fill
-> ` <i class="bi bi-caret-up-fill"></i> `
-======================================
+> `<i class="bi bi-caret-up-fill"></i>`
+> ======================================
 
 import React from 'react'
 
 const sortIcon = ({ selectedSort }) => {
-  return (
-    <>
-      {selectedSort.order === 'asc' && (
-        <svg
+return (
+<>
+{selectedSort.order === 'asc' && (
+<svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -242,11 +243,11 @@ const sortIcon = ({ selectedSort }) => {
           className="bi bi-caret-up-fill"
           viewBox="0 0 16 16"
         >
-          <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-        </svg>
-      )}
-      {selectedSort.order === 'desc' && (
-        <svg
+<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+</svg>
+)}
+{selectedSort.order === 'desc' && (
+<svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -254,20 +255,62 @@ const sortIcon = ({ selectedSort }) => {
           className="bi bi-caret-down-fill"
           viewBox="0 0 16 16"
         >
-          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-        </svg>
-      )}
-    </>
-  )
+<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+</svg>
+)}
+</>
+)
 }
 
-export default sortIcon
-=======================================
+# export default sortIcon
 
- {columns[column].name}
-            {columns[column].path &&
-              columns[column].path === selectedSort.path && (
-                <SortIcon selectedSort={selectedSort} />
-              )}
+{columns[column].name}
+{columns[column].path &&
+columns[column].path === selectedSort.path && (
+<SortIcon selectedSort={selectedSort} />
+)}
 
 ==========================
+в table.jsx
+
+const Table = ({ onSort, selectedSort, columns, data, children }) => {
+return (
+<table className='table'>
+{ children || (
+<>
+<TableHeader { ...{ onSort, selectedSort, columns } } />
+<TableBody { ...{ columns, data } } />
+</>) }
+
+    </table>
+
+)
+}
+и соответственно в usersTable.jsx
+<Table>
+<TableHeader { ...{ onSort, selectedSort, columns } } />
+<TableBody { ...{ columns, data: users } } />
+</Table>
+
+надо забрать детей из Table. в Table деструктуризируем children 
+==========
+
+или вариант:
+
+в usersTable.jsx
+
+ <Table
+      onSort={ onSort }
+      selectedSort={ selectedSort }
+      columns={ columns }
+      data={ users }
+    />
+так же будет отображаться
+
+====================
+если делать все в одной таблице то нет доступа до TableHeader и TableBody и  невозможно поменять внутри при изменении значений
+
+## рефакторинг
+
+перенос данных о пользователях в компонент пользователи
+

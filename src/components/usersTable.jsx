@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // import User from './user'
-import TableHeader from './tableHeader'
-import TableBody from './tableBody'
+// import TableHeader from './tableHeader'
+// import TableBody from './tableBody'
 import BookMark from './bookmark'
+import QualitiesList from './qualitiesList'
+import Table from './table'
 
 const UserTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ...rest }) => {
   const columns = {
     name: { path: 'name', name: 'Имя' },
     professions: { path: 'profession.name', name: 'Профессия' },
-    qualities: { name: 'Качества' },
+    qualities: {
+      name: 'Качества',
+      component: (user) =>
+        (<QualitiesList qualities={ user.qualities } />)
+    },
     completedMeetings: { path: 'completedMeetings', name: 'кол-во встреч' },
     rate: { path: 'rate', name: 'рейтинг' },
     bookmark: {
@@ -43,17 +49,21 @@ const UserTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ..
   // ))
 
   return (
-    <table className='table'>
-      {/* <TableHeader
-        onSort={ onSort }
-        selectedSort={ selectedSort }
-        columns={ columns }
-      /> */}
-      <TableHeader { ...{ onSort, selectedSort, columns } } />
-      <TableBody { ...{ columns, data: users } } />
-      {/* <tbody>{ rows }</tbody> */ }
-    </table>)
+
+    // <Table>
+    //   <TableHeader { ...{ onSort, selectedSort, columns } } />
+    //   <TableBody { ...{ columns, data: users } } />
+    // </Table>
+
+    <Table
+      onSort={ onSort }
+      selectedSort={ selectedSort }
+      columns={ columns }
+      data={ users }
+    />
+  )
 }
+
 UserTable.propTypes = {
   users: PropTypes.array.isRequired,
   onSort: PropTypes.func.isRequired,
