@@ -307,7 +307,8 @@ return (
     />
 так же будет отображаться
 
-====================
+===========
+
 если делать все в одной таблице то нет доступа до TableHeader и TableBody и  невозможно поменять внутри при изменении значений
 
 ## рефакторинг
@@ -372,11 +373,36 @@ const Users = () => {}
 Users
 D:/_Prj/react/fast-company/src/components/users.jsx:79
   76 |    ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+
   77 |    : users
   78 | 
+ 
  79 |  *const count = filteredUsers.length*
      | ^  80 | 
-  81 |  // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
+ 
+  81 |  // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, 
+  
+  [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
   82 |  const sort
+
+===
+
+
+
+    Установка react-router-dom
+    Создание Navbar
+    Switch и его особенности
+    Route
+    Параметры и свойства у Route
+    Опциональные параметры
+    Query параметры
+    Переадресация (редирект)
+    History. Программная навигация
+    Хуки react-router-dom
+    Вложеные пути
+    Рефакторинг
+    
+
+
 
   
