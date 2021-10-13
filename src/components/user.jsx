@@ -19,7 +19,8 @@ const User = ({
   // console.log('_id', _id, typeof (_id))
   return (
     <tr key={ _id }>
-      <td>{ name }</td>
+      {/* <td> <Link to={`users/${_id}?` } >{name}</Link> </td> */ }
+      <td> { name }  </td>
       <td>{ profession.name }</td>
       <td>
         {/* тут было { qualities.map(({ _id, ...quality }) => (

@@ -20,8 +20,16 @@ const Users = () => {
 
   const [users, setUsers] = useState()
 
+  // useEffect(() => {
+  //   api.users.fetchAll()
+  //     .then((data) => {
+  //       setUsers(data)
+  //     })
+  // }, [])
+  // после дополнительного экспорта импорта из api
+
   useEffect(() => {
-    api.users.fetchAll()
+    api.users()
       .then((data) => {
         setUsers(data)
       })
