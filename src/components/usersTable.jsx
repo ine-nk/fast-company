@@ -60,13 +60,14 @@ const UserTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ..
     //   <TableHeader { ...{ onSort, selectedSort, columns } } />
     //   <TableBody { ...{ columns, data: users } } />
     // </Table>
-
-    <Table
-      onSort={ onSort }
-      selectedSort={ selectedSort }
-      columns={ columns }
-      data={ users }
-    />
+    <>
+      <Table
+        onSort={ onSort }
+        selectedSort={ selectedSort }
+        columns={ columns }
+        data={ users }
+      />
+    </>
   )
 }
 

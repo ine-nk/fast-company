@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+
+import { useParams } from 'react-router-dom'
 import Pagination from './pagination'
 import api from '../api/index'
 import GroupList from './groupList'
@@ -8,8 +10,11 @@ import _ from 'lodash'
 
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
+import UserById from './userById'
 
 const Users = () => {
+  const params = useParams()
+  const { userId } = params
   const [currentPage, setCurrentPage] = useState(1)
   // const [professions] = useState(api.professions.fetchAll())
   const [professions, setProfessions] = useState()
@@ -99,38 +104,42 @@ const Users = () => {
 
     return (
       <div className='d-flex'>
-        { professions &&
-          <div className="d-flex flex-column flex-shrink-0 p-3">
-            <GroupList
-              selectedItem={ selectedProf }
-              items={ professions }
-              onItemSelect={ handleProffesionSelect }
-            />
-            <button className='btn btn-secondary mt-2' onClick={ clearFilter }>Очистить</button>
-          </div>
-        }
+        <>
+          { userId } ? <UserById /> : (
+          { professions &&
+            <div className="d-flex flex-column flex-shrink-0 p-3">
+              <GroupList
+                selectedItem={ selectedProf }
+                items={ professions }
+                onItemSelect={ handleProffesionSelect }
+              />
+              <button className='btn btn-secondary mt-2' onClick={ clearFilter }>Очистить</button>
+            </div>
+          }
 
-        <div className="d-flex flex-column">
-          <SearchStatus length={ count } />
-          { !!count && (
-            <UserTable
-              users={ usersCrop }
-              onSort={ handleSort }
-              selectedSort={ sortBy }
-              onDelete={ hanldeDelete }
-              onToggleBookMark={ handleToggleBookMark }
-            // { ...rest }
-            />
-          ) }
-          <div className="d-flex justify-content-center">
-            <Pagination
-              itemsCount={ count }
-              pageSize={ pageSize }
-              currentPage={ currentPage }
-              onPageChange={ handlePageChange }
-            />
+          <div className="d-flex flex-column">
+            <SearchStatus length={ count } />
+            { !!count && (
+              <UserTable
+                users={ usersCrop }
+                onSort={ handleSort }
+                selectedSort={ sortBy }
+                onDelete={ hanldeDelete }
+                onToggleBookMark={ handleToggleBookMark }
+              // { ...rest }
+              />
+            ) }
+            <div className="d-flex justify-content-center">
+              <Pagination
+                itemsCount={ count }
+                pageSize={ pageSize }
+                currentPage={ currentPage }
+                onPageChange={ handlePageChange }
+              />
+            </div>
           </div>
-        </div>
+          )
+        </>
       </div >
     )
   }
