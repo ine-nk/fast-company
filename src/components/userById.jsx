@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 // import Users from './users'
-import api from './index'
-import QualitiesList from '../components/qualitiesList'
+import api from '../api/index'
+import QualitiesList from './qualitiesList'
 // import User from './user.jsx'
 
 const UserById = () => {

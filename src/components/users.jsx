@@ -10,7 +10,7 @@ import _ from 'lodash'
 
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
-import UserById from '../api/userById'
+import UserById from './userById'
 
 const Users = () => {
   const params = useParams()
