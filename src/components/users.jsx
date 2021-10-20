@@ -85,7 +85,9 @@ const Users = () => {
     setSortBy(item)
   }
 
-  if (users) {
+  if (userId) {
+    return <UserById />
+  } else if (users) {
     // ================================= отсюда и до конца
     const filteredUsers = selectedProf
       ? users.filter((user) => _.isEqual(user.profession, selectedProf))
@@ -105,7 +107,7 @@ const Users = () => {
     return (
       <div className='d-flex'>
         <>
-          { userId } ? <UserById /> : (
+
           { professions &&
             <div className="d-flex flex-column flex-shrink-0 p-3">
               <GroupList
@@ -138,7 +140,6 @@ const Users = () => {
               />
             </div>
           </div>
-          )
         </>
       </div >
     )
