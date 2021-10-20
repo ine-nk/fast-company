@@ -56,3 +56,4 @@ const UserById = () => {
 
 export default UserById
 // Object.keys(user).map(item =>
+// почему-то при слиянии не изменлось имя файла - должно быть userById.jsx, а осталось userbaid.jsx
