@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react'
-
-import { useParams } from 'react-router-dom'
 import Pagination from './pagination'
 import api from '../api/index'
 import GroupList from './groupList'
 import SearchStatus from './searchStatus'
 import UserTable from './usersTable'
-import _ from 'lodash'
-
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
-import UserById from './userById'
+import _ from 'lodash'
 
 const Users = () => {
-  const params = useParams()
-  const { userId } = params
+  // const params = useParams()
+  // const { userId } = params
   const [currentPage, setCurrentPage] = useState(1)
   // const [professions] = useState(api.professions.fetchAll())
   const [professions, setProfessions] = useState()
@@ -85,9 +81,10 @@ const Users = () => {
     setSortBy(item)
   }
 
-  if (userId) {
-    return <UserById />
-  } else if (users) {
+  // if (userId) {
+  //   return <UserById />
+  // } else
+  if (users) {
     // ================================= отсюда и до конца
     const filteredUsers = selectedProf
       ? users.filter((user) => _.isEqual(user.profession, selectedProf))
@@ -145,7 +142,7 @@ const Users = () => {
     )
   }
   // это еще из if
-  return ' loading...'
+  return ' from usersList loading...'
 }
 
 Users.propTypes = {

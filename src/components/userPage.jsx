@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-// import Users from './users'
+import { useHistory } from 'react-router-dom'
 import api from '../api/index'
 import QualitiesList from './qualitiesList'
-// import User from './user.jsx'
+import PropTypes from 'prop-types'
 
-const UserById = () => {
-  const params = useParams()
+const userPage = ({ userId }) => {
   const history = useHistory()
-  const id = params.userId
   const [user, setUser] = useState()
 
-  console.log('=========id========', id)
-
   useEffect(() => {
-    api.getById(id)
+    api.getById(userId)
       .then((data) =>
         setUser(data))
   })
-  console.log('getById=============> user', user)
-
   // const values = user && Object.values(user)
   // console.log('values', values)
   const handleReturnToUsers = () => {
@@ -53,7 +46,9 @@ const UserById = () => {
     )
   }
 }
-
-export default UserById
+userPage.propTypes = {
+  userId: PropTypes.string.isRequired
+}
+export default userPage
 // Object.keys(user).map(item =>
 // почему-то при слиянии не изменлось имя файла - должно быть userById.jsx, а осталось userbaid.jsx
