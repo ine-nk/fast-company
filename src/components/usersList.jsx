@@ -7,6 +7,7 @@ import UserTable from './usersTable'
 import { paginate } from '../utils/paginate'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
+import SearchBar from './searchBar'
 
 const Users = () => {
   console.log('from module usersList')
@@ -22,6 +23,7 @@ const Users = () => {
   const pageSize = 8
 
   const [users, setUsers] = useState()
+  // const [searchedUsers, setSearchedUsers] = useState()
 
   // useEffect(() => {
   //   api.users.fetchAll()
@@ -79,6 +81,9 @@ const Users = () => {
     setCurrentPage(pageIndex)
   }
 
+  const handleSeach = (pattern) => {
+    console.log('pattern=> ', pattern)
+  }
   const handleSort = (item) => {
     setSortBy(item)
   }
@@ -120,6 +125,7 @@ const Users = () => {
 
           <div className="d-flex flex-column">
             <SearchStatus length={ count } />
+            <SearchBar onChange={ handleSeach } />
             { !!count && (
               <UserTable
                 users={ usersCrop }
@@ -154,6 +160,7 @@ Users.propTypes = {
   currentPage: PropTypes.number,
   allUsers: PropTypes.array,
   users: PropTypes.array,
-  selectedSort: PropTypes.object.isRequired
+  selectedSort: PropTypes.object.isRequired,
+  pattern: PropTypes.string
 }
 export default Users

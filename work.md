@@ -275,6 +275,7 @@ columns[column].path === selectedSort.path && (
 
 const Table = ({ onSort, selectedSort, columns, data, children }) => {
 return (
+
 <table className='table'>
 { children || (
 <>
@@ -287,13 +288,13 @@ return (
 )
 }
 и соответственно в usersTable.jsx
+
 <Table>
 <TableHeader { ...{ onSort, selectedSort, columns } } />
 <TableBody { ...{ columns, data: users } } />
 </Table>
 
-надо забрать детей из Table. в Table деструктуризируем children 
-==========
+# надо забрать детей из Table. в Table деструктуризируем children
 
 или вариант:
 
@@ -309,85 +310,83 @@ return (
 
 ===========
 
-если делать все в одной таблице то нет доступа до TableHeader и TableBody и  невозможно поменять внутри при изменении значений
+если делать все в одной таблице то нет доступа до TableHeader и TableBody и невозможно поменять внутри при изменении значений
 
 ## рефакторинг
 
 перенос зависимых данных о пользователях в компонент пользователи (users)
 
-т.е. переносим запрашиваемые данные из App  в users
+т.е. переносим запрашиваемые данные из App в users
 было:
 const [users, setUsers] = useState()
 
-  useEffect(() => {
-    api.users.fetchAll()
-      .then((data) => {
-        setUsers(data)
-      })
-  }, [])
-  console.log('users------------>', users)
+useEffect(() => {
+api.users.fetchAll()
+.then((data) => {
+setUsers(data)
+})
+}, [])
+console.log('users------------>', users)
 
-  const hanldeDelete = (userId) => {
-    const newUsers = users.filter((user) => user._id !== userId)
-    setUsers(newUsers)
-  }
+const hanldeDelete = (userId) => {
+const newUsers = users.filter((user) => user.\_id !== userId)
+setUsers(newUsers)
+}
 
-  const handleToggleBookMark = (id) => {
-    // const newUsers = [...users]
-    // const index = newUsers.findIndex((user) => user._id === id)
-    // newUsers[index].status = !newUsers[index].status
-    // setUsers(newUsers)
-    setUsers(
-      users.map((user) => {
-        if (user._id === id) {
-          return { ...user, bookmark: !user.bookmark }
-        }
-        return user
-      })
-    )
-  }
+const handleToggleBookMark = (id) => {
+// const newUsers = [...users]
+// const index = newUsers.findIndex((user) => user.\_id === id)
+// newUsers[index].status = !newUsers[index].status
+// setUsers(newUsers)
+setUsers(
+users.map((user) => {
+if (user.\_id === id) {
+return { ...user, bookmark: !user.bookmark }
+}
+return user
+})
+)
+}
 
-  return (
-    <div>
-      { users &&
-        <Users
-          users={ users }
-          onDelete={ hanldeDelete }
-          onToggleBookMark={ handleToggleBookMark }
-        />
-      }
-    </div>)
+return (
+<div>
+{ users &&
+<Users
+users={ users }
+onDelete={ hanldeDelete }
+onToggleBookMark={ handleToggleBookMark }
+/>
+}
+</div>)
 }
 
 в Users было:
 const Users = ({ users: allUsers, selectedSort, ...rest }) => {}
->>>
-стало:
-так как все данные внутренние
-const Users = () => {}
+
+> > > стало:
+> > > так как все данные внутренние
+> > > const Users = () => {}
 
 в filteredUsers надо заменить allUsers на users
 
-> выходит ошибка  - что не возможно понять длину массива - так как запрос данных идет асинхронно
+> выходит ошибка - что не возможно понять длину массива - так как запрос данных идет асинхронно
 
 Users
 D:/_Prj/react/fast-company/src/components/users.jsx:79
-  76 |    ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+76 | ? users.filter((user) => _.isEqual(user.profession, selectedProf))
 
-  77 |    : users
-  78 | 
- 
- 79 |  *const count = filteredUsers.length*
-     | ^  80 | 
- 
-  81 |  // сортировать будем через библиотеку lodash _.orderBy(массив_который_сортируем, 
-  
-  [по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
-  82 |  const sort
+77 | : users
+78 |
+
+79 | _const count = filteredUsers.length_
+| ^ 80 |
+
+81 | // сортировать будем через библиотеку lodash *.orderBy(массив*который_сортируем,
+
+[по_какому_полю_сортируем, ...], ['asc = ascending'/'desc = descending'])
+82 | const sort
 
 ===
-
-
 
     Установка react-router-dom
     Создание Navbar
@@ -401,34 +400,32 @@ D:/_Prj/react/fast-company/src/components/users.jsx:79
     Хуки react-router-dom
     Вложеные пути
     Рефакторинг
-    
 
+## добавление bootstrap
 
+### добавление обертки
 
-  
+https://getbootstrap.com/docs/5.1/layout/containers/
 
+### обертка для формы
 
-  ## добавление bootstrap
-  ### добавление обертки
+Offset classes
+Offsetting columns
+https://getbootstrap.com/docs/5.1/layout/columns/#offsetting-columns
 
-  https://getbootstrap.com/docs/5.1/layout/containers/
+.col-md-6 .offset-md-3
 
-  ### обертка для формы
+классы у полей формы надо ставить в компоненте TextField
+https://getbootstrap.com/docs/5.1/forms/validation/
 
-  Offset classes
-  Offsetting columns
-  https://getbootstrap.com/docs/5.1/layout/columns/#offsetting-columns
+### отобразить - скрыть пароль
 
-  .col-md-6 .offset-md-3
+https://getbootstrap.com/docs/5.1/forms/input-group/
 
-  классы у полей формы надо ставить в компоненте TextField
-  https://getbootstrap.com/docs/5.1/forms/validation/
+<button class="btn btn-outline-secondary" type="button">Button</button>
 
+### задание 1
 
-
-  ### отобразить - скрыть пароль
-
-  https://getbootstrap.com/docs/5.1/forms/input-group/
-
- <button class="btn btn-outline-secondary" type="button">Button</button>
- 
+1.  сделать поиск по совпадению в любом месте имени пользователях
+2.  при нажатии на фильтрацию поиск сбрасывается
+3.  если вводим поиск то очищается выбор фильтрации (то есть фильтрации взаимозаменяемы)
