@@ -9,6 +9,8 @@ import { PropTypes } from 'prop-types'
 import _ from 'lodash'
 
 const Users = () => {
+  console.log('from module usersList')
+
   // const params = useParams()
   // const { userId } = params
   const [currentPage, setCurrentPage] = useState(1)
@@ -35,7 +37,7 @@ const Users = () => {
         setUsers(data)
       })
   }, [])
-  console.log('users------------>', users)
+  // console.log('users------------>', users)
 
   const hanldeDelete = (userId) => {
     const newUsers = users.filter((user) => user._id !== userId)

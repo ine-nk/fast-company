@@ -406,3 +406,29 @@ D:/_Prj/react/fast-company/src/components/users.jsx:79
 
 
   
+
+
+  ## добавление bootstrap
+  ### добавление обертки
+
+  https://getbootstrap.com/docs/5.1/layout/containers/
+
+  ### обертка для формы
+
+  Offset classes
+  Offsetting columns
+  https://getbootstrap.com/docs/5.1/layout/columns/#offsetting-columns
+
+  .col-md-6 .offset-md-3
+
+  классы у полей формы надо ставить в компоненте TextField
+  https://getbootstrap.com/docs/5.1/forms/validation/
+
+
+
+  ### отобразить - скрыть пароль
+
+  https://getbootstrap.com/docs/5.1/forms/input-group/
+
+ <button class="btn btn-outline-secondary" type="button">Button</button>
+ 
