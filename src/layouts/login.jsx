@@ -71,7 +71,7 @@ const Login = () => {
               onChange={ handleChange }
               error={ errors.email } />
             <TextField label="Пароль" type="password" name="password" value={ data.password } onChange={ handleChange } error={ errors.password } />
-            <button type='submit' disabled={ !isValid } className="btn btn-primary w-100 mx-auto">Отправить</button>
+            <button type='submit' disabled={ !isValid } className="btn btn-primary w-100 mx-a">Отправить</button>
           </form>
         </div>
       </div>

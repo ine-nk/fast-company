@@ -23,6 +23,7 @@ const Users = () => {
   const pageSize = 8
 
   const [users, setUsers] = useState()
+  const [searchText, setSearchText] = useState('')
   // const [searchedUsers, setSearchedUsers] = useState()
 
   // useEffect(() => {
@@ -80,10 +81,13 @@ const Users = () => {
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
-
-  const handleSeach = (pattern) => {
-    console.log('pattern=> ', pattern)
+  const handleChangeSearch = ({ target }) => {
+    setSearchText(() => target.value)
+    console.log(searchText)
   }
+  // const handleSeach = (pattern) => {
+  //   console.log('pattern=> ', pattern)
+  // }
   const handleSort = (item) => {
     setSortBy(item)
   }
@@ -125,7 +129,10 @@ const Users = () => {
 
           <div className="d-flex flex-column">
             <SearchStatus length={ count } />
-            <SearchBar onChange={ handleSeach } />
+            <SearchBar
+              onChange={ handleChangeSearch }
+              value={ searchText }
+            />
             { !!count && (
               <UserTable
                 users={ usersCrop }
